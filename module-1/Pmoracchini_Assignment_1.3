@@ -1,0 +1,71 @@
+"""
+Assignment 1.3  On the Wall + Flowchart(s)
+Patrice Moracchini
+Description: 
+    Asks the user how many bottles are on the wall,  then counts down the
+    "bottles of beer on the wall" song from that number to 1 using a function.
+    Handles singular/plural grammar and ends with a reminder to buy more beer.
+"""
+
+# Function to display the grammatically correct word for "bottle" based on count
+def bottle_word(n:  int) -> str:
+    """Display 'bottle' if n is 1, otherwise 'bottles'."""
+    return "bottle" if n == 1 else "bottles"
+
+
+# Function to print the song lyrics, counting down from the starting number
+def lyrics_countdown(start:  int) -> None: 
+    """
+    Print the countdown lyrics from `start` down to 1.
+    For each verse,  adjust grammar and remaining count.
+    """
+    # Loop from start number down to 1
+    for n in range(start,  0,  -1): 
+        # Calculate the next number for the countdown
+        next_n = n - 1
+        # Print the first line with current bottle count
+        print(f"{n} {bottle_word(n)} of beer on the wall,  {n} {bottle_word(n)} of beer.")
+        # Check if there will be bottles left after taking one down
+        if next_n >= 1: 
+            # Print second line with next bottle count
+            print(f"Take one down and pass it around,  {next_n} {bottle_word(next_n)} of beer on the wall.")
+        else: 
+            # Print special case for when no bottles remain
+            print("Take one down and pass it around,  no more bottles of beer on the wall.")
+        # Add blank line between verses
+        print()  # blank line between verses
+
+
+# Function to get a positive integer from the user
+def get_positive_int(prompt:  str) -> int: 
+    """Prompt until the user enters a positive integer."""
+    # Continue prompting until valid input is received
+    while True: 
+        try: 
+            # Try to convert input to integer
+            value = int(input(prompt))
+            # Check if the integer is positive
+            if value <= 0: 
+                print("Please enter a positive whole number greater than 0.")
+                continue
+            return value
+        # Handle non-integer inputs
+        except ValueError: 
+            print("That wasn't a whole number. Try again.")
+
+
+# Main function
+def main() -> None: 
+    # Print header
+    print("=== 100 Bottles of Beer (Custom Count) ===")
+    # Get starting number from user
+    start = get_positive_int("Enter number of bottles:  ")
+    # Start the lyrics countdown
+    lyrics_countdown(start)
+    # Print final message
+    print("Buy more beer! (Or not.) But think about your belly and liver...")
+
+
+# Call the main function if this script is executed
+if __name__ == "__main__": 
+    main()
